@@ -17,17 +17,21 @@ public struct VisualEffectBlur<Content: View>: View {
 
     /// Defaults to nil
     var vibrancyStyle: UIVibrancyEffectStyle?
+ 
+     /// Defaults to true
+    var expand: Bool?
 
     var content: Content
 
-    public init(blurStyle: UIBlurEffect.Style = .systemMaterial, vibrancyStyle: UIVibrancyEffectStyle? = nil, @ViewBuilder content: () -> Content) {
+    public init(blurStyle: UIBlurEffect.Style = .systemMaterial, vibrancyStyle: UIVibrancyEffectStyle? = nil, expand: Bool? = true, @ViewBuilder content: () -> Content) {
         self.blurStyle = blurStyle
         self.vibrancyStyle = vibrancyStyle
+        self.expand = expand
         self.content = content()
     }
 
     public var body: some View {
-        Representable(blurStyle: blurStyle, vibrancyStyle: vibrancyStyle, content: ZStack { content })
+        Representable(blurStyle: blurStyle, vibrancyStyle: vibrancyStyle, content: expand ? ZStack { content } : content)
             .accessibility(hidden: Content.self == EmptyView.self)
     }
 }
