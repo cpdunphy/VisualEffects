@@ -37,9 +37,9 @@ public struct VisualEffectBlur<Content: View>: View {
  
     var contentView : some View {
          if expand ?? true {
-            ZStack { content }
+            return ZStack { content }
          } else {
-            content
+            return content
          }
     }
 }
