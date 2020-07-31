@@ -31,7 +31,13 @@ public struct VisualEffectBlur<Content: View>: View {
     }
 
     public var body: some View {
-        Representable(blurStyle: blurStyle, vibrancyStyle: vibrancyStyle, content: expand ? ZStack { content } : content)
+        Representable(blurStyle: blurStyle, vibrancyStyle: vibrancyStyle, content: {        
+         if expand ?? true {
+            ZStack { content }
+         } else {
+            content
+         }
+        })
             .accessibility(hidden: Content.self == EmptyView.self)
     }
 }
